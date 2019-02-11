@@ -1,6 +1,5 @@
 package ktor
 
-import de.hilling.coroutines.common.log
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.client.HttpClient
@@ -9,6 +8,13 @@ import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
 import kotlinx.coroutines.delay
+import org.slf4j.LoggerFactory
+
+val logger = LoggerFactory.getLogger("application")
+
+fun log(message: String) {
+    logger.debug(message)
+}
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
