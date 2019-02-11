@@ -26,7 +26,7 @@ fun Application.module(testing: Boolean = false) {
     routing {
         get("/hello") {
             log("delay")
-            delay(400)
+            delay(100)
             log("responding hello")
             call.respondText("hello, world!")
         }
