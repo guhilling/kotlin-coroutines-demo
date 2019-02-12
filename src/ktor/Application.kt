@@ -20,8 +20,8 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
-    val client = HttpClient() {
-    }
+    val client = HttpClient()
+    val port = environment.config.property("ktor.deployment.port").getString();
 
     routing {
         get("/hello") {
@@ -32,7 +32,7 @@ fun Application.module(testing: Boolean = false) {
         }
         get("/HELLO") {
             log("calling HELLO")
-            val result = client.get<String> ("http://localhost:8080/hello")
+            val result = client.get<String> ("http://localhost:${port}/hello")
             call.respondText(result.toUpperCase())
             log("called HELLO")
         }
