@@ -9,12 +9,14 @@ import kotlinx.coroutines.runBlocking
 
 fun main(): Unit = runBlocking {
     val pool = newFixedThreadPoolContext(2, "worker pool")
-    val timesAccumulator = Channel<Long>(0);
-    for (i in 1..4) {
+    val timesAccumulator = Channel<Long>(0)
+
+    (1..4).forEach {
         launch(pool) {
-            timesAccumulator.send(doWork("task-$i"))
+            timesAccumulator.send(doWork("task-${it}"))
         }
     }
+
     var total = 0L
     timesAccumulator.consumeEach {
         total += it
